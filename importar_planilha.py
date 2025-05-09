@@ -15,4 +15,4 @@ def importar_planilha(caminho_arquivo: str, caminho_db: str = "dados.db"):
 
 # Exemplo de uso
 if __name__ == "__main__":
-    importar_planilha("Mapa de Lançamentos e Oportunidades - Definitivo (3).xlsb")  # ← substitua pelo nome real do arquivo
+    importar_planilha("planilha_tratada.xlsx")  # ← substitua pelo nome real do arquivo

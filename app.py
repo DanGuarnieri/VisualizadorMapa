@@ -151,6 +151,12 @@ else:
                 <div style='background-color:#fff; padding:20px; border-radius:12px;
                             box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:20px;'>
                     <h4 style='margin-bottom:10px;'>{row.get('Descrição do produto','Sem descrição')} {badge}</h4>
+                    <table>
+                        <tr>
+                            <td><strong>Sugestão Região:</strong> {row.get("Sugestão Região", "-")}</td>
+                            <td><strong>Decisão Validada - Região:</strong> {row.get("Decisão Validada - Região", "-")}</td>
+                        </tr>
+                    </table>
                     <table style='width:100%; font-size:14px; border-collapse:collapse;'>
                         <tr>
                             <td><strong>Solicitante:</strong> {row.get('Solicitante','-')}</td>
@@ -161,48 +167,43 @@ else:
                         <tr>
                             <td><strong>Tipo:</strong> {row.get("Tipo", "-")}</td>
                             <td><strong>Nº Fornecedor:</strong> {row.get("Nº Fornecedor", "-")}</td>
-                            <td><strong>Nº Produto:</strong> {row.get("Nº Produto", "-")}</td>
-                            <td><strong>Categoria:</strong> {row.get("Categoria", "-")}</td>
+                            <td colspan="1"><strong>Nº Produto:</strong> {row.get("Nº Produto", "-")}</td>
                         </tr>
                         <tr>
+                            <td><strong>Categoria:</strong> {row.get("Categoria", "-")}</td>
                             <td><strong>Subcategoria:</strong> {row.get("Subcategoria", "-")}</td>
                             <td><strong>Cod Grupo:</strong> {row.get("Cod Grupo", "-")}</td>
-                            <td><strong>Grupo Solução:</strong> {row.get("Grupo Solução", "-")}</td>
                             <td><strong>Cod Subgrupo:</strong> {row.get("Cod Subgrupo", "-")}</td>
                         </tr>
                         <tr>
+                            <td><strong>Grupo Solução:</strong> {row.get("Grupo Solução", "-")}</td>
                             <td><strong>Subgrupo Solução:</strong> {row.get("Subgrupo Solução", "-")}</td>
                             <td><strong>Item de ME:</strong> {row.get("Item de ME", "-")}</td>
-                            <td><strong>Item Substituto:</strong> {row.get("Item Substituto", "-")}</td>
                             <td><strong>Previsão de Lançamento:</strong> {row.get("Previsão de Lançamento", "-")}</td>
                         </tr>
                         <tr>
-                            <td><strong>Observação Comercial:</strong> {row.get("Observação Comercial", "-")}</td>
                             <td><strong>Sugestão Bandeira:</strong> {row.get("Sugestão Bandeira", "-")}</td>
-                            <td><strong>Sugestão Região:</strong> {row.get("Sugestão Região", "-")}</td>
+                            <td><strong>Decisão Validada - Bandeira:</strong> {row.get("Decisão Validada - Bandeira", "-")}</td>
                             <td><strong>Sugestão Perfil:</strong> {row.get("Sugestão Perfil", "-")}</td>
+                            <td><strong>Decisão Validada - Perfil:</strong> {row.get("Decisão Validada - Perfil", "-")}</td>
                         </tr>
                         <tr>
                             <td><strong>Sugestão Tamanho:</strong> {row.get("Sugestão Tamanho", "-")}</td>
+                            <td><strong>Decisão Validada - Tamanho:</strong> {row.get("Decisão Validada - Tamanho", "-")}</td>
                             <td><strong>Lojas Especificas Nº LOJA:</strong> {row.get("Lojas Especificas Nº LOJA", "-")}</td>
                             <td><strong>Planejamento Comercial:</strong> {row.get("Planejamento Comercial", "-")}</td>
-                            <td><strong>Decisão Validada - Bandeira:</strong> {row.get("Decisão Validada - Bandeira", "-")}</td>
                         </tr>
                         <tr>
-                            <td><strong>Decisão Validada - Região:</strong> {row.get("Decisão Validada - Região", "-")}</td>
-                            <td><strong>Decisão Validada - Perfil:</strong> {row.get("Decisão Validada - Perfil", "-")}</td>
-                            <td><strong>Decisão Validada - Tamanho:</strong> {row.get("Decisão Validada - Tamanho", "-")}</td>
-                            <td><strong>Lojas Definidas Nº LOJA:</strong> {row.get("Lojas Definidas Nº LOJA", "-")}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><strong>Responsável pela Aprovação:</strong> {row.get("Responsável pela aprovação (\"GCAT\" + \"COMERCIAL\")", "-")}</td>
-                            <td><strong>Observação:</strong> {row.get("Observação", "-")}</td>
                             <td><strong>Status de cluster:</strong> {row.get("Status de cluster", "-")}</td>
+                            <td><strong>Lojas Definidas Nº LOJA:</strong> {row.get("Lojas Definidas Nº LOJA", "-")}</td>
+                            <td><strong>Observação Comercial:</strong> {row.get("Observação Comercial", "-")}</td>
+                            <td><strong>Item Substituto:</strong> {row.get("Item Substituto", "-")}</td>
                         </tr>
                         <tr>
-                            <td><strong>Data de Validação:</strong> {row.get("Data de Validação", "-")}</td>
+                            <td><strong>Responsável pela Aprovação:</strong> {row.get("Responsável pela aprovação (\"GCAT\" + \"COMERCIAL\")", "-")}</td>
+                            <td><strong>Observação:</strong> {row.get("Observação", "-")}</td>
                             <td><strong>Tempo de Retorno:</strong> {row.get("Tempo de Retorno", "-")}</td>
-                            <td colspan="2"></td>
+                            <td><strong>Data de Validação:</strong> {row.get("Data de Validação", "-")}</td>
                         </tr>
                     </table>
                 </div>
