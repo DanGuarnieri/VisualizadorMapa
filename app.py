@@ -2,6 +2,29 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 import numpy as np
+from dotenv import load_dotenv
+import os
+
+# === CARREGA A SENHA A PARTIR DO .env ===
+load_dotenv()
+SENHA_CORRETA = os.getenv("SENHA_CORRETA")
+
+# === AUTENTICAÇÃO SIMPLES ===
+if "autenticado" not in st.session_state:
+    st.session_state.autenticado = False
+
+if not st.session_state.autenticado:
+    st.title("🔒 Acesso restrito")
+    senha = st.text_input("Digite a senha para acessar:", type="password")
+    if senha == SENHA_CORRETA:
+        st.session_state.autenticado = True
+        st.rerun()
+    elif senha:
+        st.error("Senha incorreta. Tente novamente.")
+    st.stop()
+
+
+# === APP PRINCIPAL ===
 
 # Configurações da página
 st.set_page_config(page_title="Consulta Mapa", layout="wide")
@@ -13,6 +36,7 @@ try:
 except Exception as e:
     st.error(f"Erro ao conectar no banco de dados: {e}")
     st.stop()
+
 
 # Lê todos os dados
 df_completo = pd.read_sql_query("SELECT * FROM dados", conn)
