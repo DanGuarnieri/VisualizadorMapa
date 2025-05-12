@@ -68,7 +68,7 @@ for col in colunas_data:
 # Layout de busca
 col_a, col_b = st.columns(2)
 busca = col_a.text_input("Digite o PLU ou EAN:")
-nome_input = col_b.text_input("Filtrar por solicitante (insensitive):")
+nome_input = col_b.text_input("Filtrar por solicitante:")
 nome = nome_input.strip().upper()
 
 # Função de badge
@@ -147,6 +147,8 @@ else:
                         <tr>
                             <td><strong>Sugestão Região:</strong> {row.get("Sugestão Região", "-")}</td>
                             <td><strong>Decisão Validada - Região:</strong> {row.get("Decisão Validada - Região", "-")}</td>
+                            <td><strong>Provedor:</strong> {row.get("Nome Provedor", "-")}</td>
+                            <td><strong>Provedor:</strong> {row.get("Inconsistências", "-")}</td>
                         </tr>
                     </table>
                     <table style='width:100%; font-size:14px; border-collapse:collapse;'>
