@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from dotenv import load_dotenv
 import os
+from io import BytesIO
 
 # === CARREGA A SENHA A PARTIR DO .env ===
 load_dotenv()
@@ -51,18 +52,18 @@ if 'Solicitante' in df_completo.columns:
 else:
     df_completo['Solicitante_limpo'] = ''
 
-# Converte e formata datas (trata overflow)
 colunas_data = ["Data da Inclusão", "Previsão de Lançamento", "Data de Validação"]
 
 for col in colunas_data:
     if col in df_completo.columns:
         try:
-            df_completo[col] = pd.to_datetime(df_completo[col], errors='coerce')\
-                                    .dt.strftime('%d/%m/%Y')\
-                                    .fillna("")
+            df_completo[col] = pd.to_datetime(df_completo[col], errors='coerce')
+            # Cria nova coluna para exibição
         except Exception as e:
             st.warning(f"Erro ao converter coluna {col}: {e}")
-            df_completo[col] = ""
+            df_completo[col] = pd.NaT
+            df_completo[f"{col}"] = ""
+
 
 
 # Layout de busca
@@ -70,6 +71,9 @@ col_a, col_b = st.columns(2)
 busca = col_a.text_input("Digite o PLU ou EAN:")
 nome_input = col_b.text_input("Filtrar por solicitante:")
 nome = nome_input.strip().upper()
+
+data_inicio = st.date_input("Data de Início:",value=None, format="DD.MM.YYYY")
+data_fim = st.date_input("Data de Fim:",value=None, format="DD.MM.YYYY")
 
 # Função de badge
 def render_status_badge(status):
@@ -106,6 +110,13 @@ if busca:
     )
 if nome:
     mask &= df_completo['Solicitante_limpo'].str.contains(nome, na=False)
+
+if data_inicio and data_fim:
+    mask &= (
+        (df_completo['Data da Inclusão'].dt.date >= data_inicio) &
+        (df_completo['Data da Inclusão'].dt.date <= data_fim)
+    )
+
 df_filtrado = df_completo[mask]
 
 # Indicadores
@@ -118,7 +129,7 @@ def calcular_indicadores(df):
     agu = sc.isin(['aguardando', 'aguardando atendimento', '', 'none', 'aguardando validação']).sum()
     return aprov, rej, agu
 
-base_ind = df_filtrado if nome else df_completo
+base_ind = df_filtrado if (nome or data_inicio or data_fim or busca) else df_completo
 aprovados, rejeitados, aguardando = calcular_indicadores(base_ind)
 
 # Exibição indicadores
@@ -127,8 +138,19 @@ c1.metric("✅ Aprovados", aprovados)
 c2.metric("❌ Rejeitados", rejeitados)
 c3.metric("🕒 Aguardando", aguardando)
 
+# Exportar dados filtrados
+if not df_filtrado.empty:
+    buffer = BytesIO()
+    df_filtrado.drop(columns=['Solicitante_limpo'], errors='ignore').to_excel(buffer, index=False)
+    st.download_button(
+        label="📥 Baixar resultados filtrados",
+        data=buffer.getvalue(),
+        file_name="resultado_consulta.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
 # Resultados
-if not busca and not nome:
+if not busca and not nome and not (data_inicio or data_fim):
     st.info("Digite um PLU/EAN ou informe um solicitante para iniciar a consulta.")
 else:
     st.success(f"{len(df_filtrado)} produto(s) encontrado(s). ")
@@ -148,13 +170,14 @@ else:
                             <td><strong>Sugestão Região:</strong> {row.get("Sugestão Região", "-")}</td>
                             <td><strong>Decisão Validada - Região:</strong> {row.get("Decisão Validada - Região", "-")}</td>
                             <td><strong>Provedor:</strong> {row.get("Nome Provedor", "-")}</td>
-                            <td><strong>Inconsistências:</strong> {row.get("Inconsistências", "-")}</td>
+                            <td><strong>Inconsistência:</strong> {row.get("Inconsistências", "-")}</td>
                         </tr>
                     </table>
                     <table style='width:100%; font-size:14px; border-collapse:collapse;'>
                         <tr>
                             <td><strong>Solicitante:</strong> {row.get('Solicitante','-')}</td>
-                            <td><strong>Data da Inclusão:</strong> {row.get('Data da Inclusão','-')}</td>
+                            <td><strong>Data da Inclusão:</strong> {row.get('Data da Inclusão', '-').strftime('%d/%m/%Y') if pd.notnull(row.get('Data da Inclusão')) else '-'
+                            }</td>
                             <td><strong>EAN:</strong> {row.get('EAN','-')}</td>
                             <td><strong>PLU:</strong> {row.get('PLU','-')}</td>
                         </tr>

@@ -20,7 +20,7 @@ def importar_planilha(caminho_arquivo: str, caminho_db: str = "dados.db"):
 sharepoint_url = 'COLE_AQUI_A_URL_DIRETA_DA_PLANILHA.xlsx'
 abas_interesse = ['NAL', 'PAS', 'DPH e Perfumaria', 'Liquida', 'Mercearia Complementar', 'Merc Basica']
 cabecalho_padrao = ['Solicitante','Data da Inclusão','EAN',
-                    'PLU','	Descrição do produto','Tipo','Nº Fornecedor',
+                    'PLU','Descrição do produto','Tipo','Nº Fornecedor',
                     'Nº Produto','Categoria','Subcategoria','Cod Grupo',
                     'Grupo Solução', 'Cod Subgrupo','Subgrupo Solução', 'Item de ME',
                     'Item Substituto',	'Previsão de Lançamento','Observação Comercial','Sugestão Bandeira',
