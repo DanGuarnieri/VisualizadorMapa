@@ -143,7 +143,7 @@ else:
                 <div style='background-color:#fff; padding:20px; border-radius:12px;
                             box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:20px;'>
                     <h4 style='margin-bottom:10px;'>{row.get('Descrição do produto','Sem descrição')} {badge}</h4>
-                    <table>
+                    <table style='border-collapse:collapse; width:100%; font-size:14px;'>
                         <tr>
                             <td><strong>Sugestão Região:</strong> {row.get("Sugestão Região", "-")}</td>
                             <td><strong>Decisão Validada - Região:</strong> {row.get("Decisão Validada - Região", "-")}</td>
