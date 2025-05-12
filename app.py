@@ -148,7 +148,7 @@ else:
                             <td><strong>Sugestão Região:</strong> {row.get("Sugestão Região", "-")}</td>
                             <td><strong>Decisão Validada - Região:</strong> {row.get("Decisão Validada - Região", "-")}</td>
                             <td><strong>Provedor:</strong> {row.get("Nome Provedor", "-")}</td>
-                            <td><strong>Provedor:</strong> {row.get("Inconsistências", "-")}</td>
+                            <td><strong>Inconsistências:</strong> {row.get("Inconsistências", "-")}</td>
                         </tr>
                     </table>
                     <table style='width:100%; font-size:14px; border-collapse:collapse;'>
