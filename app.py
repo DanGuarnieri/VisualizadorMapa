@@ -8,7 +8,7 @@ import os
 # === CARREGA A SENHA A PARTIR DO .env ===
 load_dotenv()
 SENHA_CORRETA = os.getenv("SENHA_CORRETA")
-
+SENHA_CORRETA1 = st.secrets['SENHA_CORRETA1']
 # === AUTENTICAÇÃO SIMPLES ===
 if "autenticado" not in st.session_state:
     st.session_state.autenticado = False
@@ -16,7 +16,7 @@ if "autenticado" not in st.session_state:
 if not st.session_state.autenticado:
     st.title("🔒 Acesso restrito")
     senha = st.text_input("Digite a senha para acessar:", type="password")
-    if senha == SENHA_CORRETA:
+    if senha == SENHA_CORRETA or senha == SENHA_CORRETA1:
         st.session_state.autenticado = True
         st.rerun()
     elif senha:
@@ -53,21 +53,13 @@ else:
 
 # Converte e formata datas (trata overflow)
 colunas_data = ["Data da Inclusão", "Previsão de Lançamento", "Data de Validação"]
+
 for col in colunas_data:
     if col in df_completo.columns:
         try:
-            series_num = pd.to_numeric(df_completo[col], errors='coerce')
-            series_num = series_num.replace([np.inf, -np.inf], np.nan)
-            # Remove valores muito grandes ou negativos antes da conversão
-            series_num = series_num[(series_num >= 0) & (series_num <= 60000)]
-
-            df_completo[col] = pd.to_datetime(
-                series_num,
-                origin='1899-12-30',
-                unit='D',
-                errors='coerce'
-            ).dt.strftime('%d/%m/%Y').fillna("")
-
+            df_completo[col] = pd.to_datetime(df_completo[col], errors='coerce')\
+                                    .dt.strftime('%d/%m/%Y')\
+                                    .fillna("")
         except Exception as e:
             st.warning(f"Erro ao converter coluna {col}: {e}")
             df_completo[col] = ""
