@@ -29,7 +29,7 @@ cabecalho_padrao = ['Solicitante','Data da Inclusão','EAN',
                     'Decisão Validada - Perfil','Decisão Validada - Tamanho','Lojas Definidas Nº LOJA',
                     'Responsável pela aprovação ("GCAT" + "COMERCIAL")','Observação','Status de cluster','Data de Validação',	
                     'Tempo de Retorno']
-Produtos_postados = r'C:\Users\3878422\OneDrive\Onedrive - GPA\Área de Trabalho\Projetos Python\Visualizador\ProdutosPostados.xlsx'
+Produtos_postados = r'C:\Users\3878422\OneDrive\Onedrive - GPA\Área de Trabalho\Projetos Python\Visualizador\CatalogoProdutos.xlsx'
 saida_arquivo = 'planilha_tratada.xlsx'
 
 

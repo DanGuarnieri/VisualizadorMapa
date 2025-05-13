@@ -2,3 +2,6 @@ pandas
 streamlit
 openpyxl
 python-dotenv
+requests
+Office365-REST-Python-Client
+pyxlsb
