@@ -125,7 +125,7 @@ def calcular_indicadores(df):
         return 0, 0, 0
     sc = df['STATUS'].astype(str).str.strip().str.lower()
     aprov = (sc == 'aprovado').sum()
-    rej = (sc == 'rejeitado').sum()
+    rej = sc.isin(['rejeitado', 'reprovado', 'não seguirá']).sum()
     agu = sc.isin(['aguardando', 'aguardando atendimento', '', 'none', 'aguardando validação']).sum()
     return aprov, rej, agu
 
